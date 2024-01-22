@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column {
                         Greeting("INF2007")
-                        From("Elon Musk")
+                        From("Sam")
                     }
                 }
             }
@@ -73,6 +73,6 @@ fun From(name: String, modifier: Modifier = Modifier) {
 fun GreetingPreview() {
     HelloINF2007Theme {
         Greeting("INF2007")
-        From("Elon Musk")
+        From("Sam")
     }
 }
