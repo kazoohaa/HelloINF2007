@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI for Android App
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
+# Controls when the workflow will run
+# Triggers the workflow on push or pull request events on all branches
+on: [push, pull_request]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout the code from the repository
+        uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
+      - run: echo "🎉 Sending notification to slack channel."
+      - name: Slack Notification
+        uses: craftech-io/slack-action@v1
+        with:
+          slack_webhook_url: "https://hooks.slack.com/services/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"
+        if: always()
